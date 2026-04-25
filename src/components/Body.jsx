@@ -8,11 +8,16 @@ import { addUser } from "../utils/userSlice";
 import { removeUser } from "../utils/userSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Body = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
+  const userData = useSelector((store) => store.user);
   const fetchUser = async () => {
+    if (userData) {
+      return;
+    }
     try {
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,

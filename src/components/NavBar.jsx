@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 // Navbar code using daisyUI
 const NavBar = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
+  // console.log(user);
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   // console.log(user);
