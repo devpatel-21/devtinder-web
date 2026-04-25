@@ -7,6 +7,7 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [emailId, setEmailId] = useState("Donald@gmail.com");
   const [password, setPassword] = useState("Donald@1234");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () => {
@@ -23,6 +24,7 @@ const Login = () => {
       dispatch(addUser(res.data));
       return navigate("/");
     } catch (err) {
+      setError(err.response.data);
       console.log(err);
     }
   };
@@ -59,6 +61,7 @@ const Login = () => {
               />
             </label>
           </div>
+          <p className="text-red-500 justify-center items-center">{error}</p>
           <div className="card-actions justify-center pt-4">
             <button
               className="btn bg-blue-900 hover:bg-blue-600 btn-primary px-8 py-3 text-lg"
