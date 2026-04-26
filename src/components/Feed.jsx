@@ -61,7 +61,7 @@ const Feed = () => {
   return (
     <div className="flex justify-center mt-8">
       {/* 3. Pass the first user from the array to the card */}
-      <UserCard user={feed[1]} />
+      <UserCard user={feed[0]} />
     </div>
   );
 };

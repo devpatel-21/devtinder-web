@@ -24,6 +24,10 @@ const Body = () => {
       });
 
       dispatch(addUser(res.data));
+
+      if (location.pathname === "/") {
+        Navigate("/feed");
+      }
     } catch (err) {
       dispatch(removeUser());
       if (err.response.status === 401) {
@@ -38,7 +42,7 @@ const Body = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <Outlet />
       <Footer />

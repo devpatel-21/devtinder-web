@@ -63,7 +63,10 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="/feed" className="justify-between">
+                  Feed
+                  {/* <span className="badge">New</span> */}
+                </Link>
               </li>
               <li>
                 <a onClick={handleLogout}>Logout</a>
