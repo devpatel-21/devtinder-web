@@ -1,12 +1,13 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addConnection } from "../utils/connectionsSlice";
 import { useSelector } from "react-redux";
 const Connections = () => {
   const connections = useSelector((store) => store.connections);
   const dispatch = useDispatch();
+  const [showbuttons, setshowbuttons] = useState(true);
   const fetchConnections = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
@@ -28,7 +29,7 @@ const Connections = () => {
   }
 
   if (connections.length === 0) {
-    return <h1 className="text-bold text-2xl">No connections found</h1>;
+    return <h1 className="flex justify-center my-10">No Connections found</h1>;
   }
   return (
     <div className="text-center my-10">
