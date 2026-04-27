@@ -1,18 +1,19 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addConnection } from "../utils/connectionsSlice";
+import { addRequest } from "../utils/requestSlice";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-const Connections = () => {
-  const connections = useSelector((store) => store.connections);
+
+const Requests = () => {
+  const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
-  const fetchConnections = async () => {
+  const fetchRequest = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/user/connections", {
+      const res = await axios.get(BASE_URL + "/user/requests/received", {
         withCredentials: true,
       });
-      dispatch(addConnection(res.data.data));
+      dispatch(addRequest(res.data.data));
       console.log(res.data.data);
     } catch (err) {
       console.log(err);
@@ -20,29 +21,29 @@ const Connections = () => {
   };
 
   useEffect(() => {
-    fetchConnections();
+    fetchRequest();
   }, []);
 
-  if (!connections) {
+  if (!requests) {
     return;
   }
 
-  if (connections.length === 0) {
-    return <h1 className="text-bold text-2xl">No connections found</h1>;
+  if (requests.length === 0) {
+    return <h1 className="text-bold text-2xl">No Requests found</h1>;
   }
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-5xl">Connections</h1>
+      <h1 className="text-bold text-white text-5xl">Requests</h1>
       {/* {connections.map((connection) => {
         <div>{connection.firstname}</div>;
       })} */}
-      {connections.map((connection) => {
+      {requests.map((request) => {
         const { _id, firstname, lastname, age, gender, about, photoUrl } =
-          connection;
+          request.fromUserId;
         return (
           <div
-            key="_id"
-            className="flex m-4 p-4  rounded-lg bg-base-300 w-1/2 mx-auto"
+            key={_id}
+            className="flex  justify-between items-center m-4 p-4  rounded-lg bg-base-300 w-2/3 mx-auto"
           >
             <div>
               <img
@@ -58,6 +59,14 @@ const Connections = () => {
               {age && gender && <p>{age + ", " + gender}</p>}
               <p>{about}</p>
             </div>
+            <div>
+              <button className="btn bg-blue-600 hover:bg-blue-900 btn-primary px-8 py-3 text-lg mx-2">
+                Reject
+              </button>
+              <button className="btn btn-secondary bg-pink-600 hover:bg-pink-900 px-8 py-3 text-lg mx-2 ">
+                Accept
+              </button>
+            </div>
           </div>
         );
       })}
@@ -65,4 +74,4 @@ const Connections = () => {
   );
 };
 
-export default Connections;
+export default Requests;
